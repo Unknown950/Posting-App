@@ -1,37 +1,37 @@
-## Welcome to GitHub Pages
+<html>
+<head><title>steem-js posting example</title></head>
+<body>
+<h2>Steemit de bir yaz&#305;y&#305 yaz!</h2>
+&Uumlye ad&#305: <input id="username" type="text"><br/>
+&#350ifre (Private Posting key): <input id="postingKey" type="password" size="65"><br/>
+Ba&#351l&#305;k: <input id="title" type="text"><br/>
+Yaz&#305:<br/>
+<textarea id="article"></textarea><br/>
+<input id="postIt" type="button" value="G&ouml;nder!" onClick=postArticle()>
+</body>
+</html>
 
-You can use the [editor on GitHub](https://github.com/theresteemer/bot/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/theresteemer/bot/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<script language="JavaScript">
+function postArticle()
+{
+  steem.broadcast.comment(
+    document.getElementById('postingKey').value, // posting wif
+    '', // author, leave blank for new post
+    'tr', // first tag
+    document.getElementById('username').value, // username
+    'name-of-my-test-article-post', // permlink
+    document.getElementById('title').value, // Title
+    document.getElementById('article').value, // Body of post
+    // json metadata (additional tags, app name, etc)
+    { tags: ['steemit'], app: 'steemjs-test!' },
+    function (err, result) {
+      if (err)
+        alert('Failure! ' + err);
+      else
+        alert('Bravo!');
+    }
+  );
+}
+</script>
